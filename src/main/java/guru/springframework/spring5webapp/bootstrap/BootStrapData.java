@@ -6,36 +6,28 @@ import guru.springframework.spring5webapp.model.Publisher;
 import guru.springframework.spring5webapp.repositories.AuthorRepository;
 import guru.springframework.spring5webapp.repositories.BookRepository;
 import guru.springframework.spring5webapp.repositories.PublisherReporsitory;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 /**
  * @Author Jolie
- * @Date 1/11/20
+ * @Date 2/10/20
  */
-//@Component
-public class DevBoostrap implements ApplicationListener<ContextRefreshedEvent> {
-    private AuthorRepository authorRepository;
-    private BookRepository bookRepository;
-    private PublisherReporsitory publisherReporsitory;
 
-    //constructor injection
-    public DevBoostrap(AuthorRepository authorRepository, BookRepository bookRepository, PublisherReporsitory publisherReporsitory) {
+@Component
+public class BootStrapData implements CommandLineRunner {
+    private final AuthorRepository authorRepository;
+    private final BookRepository bookRepository;
+    private final PublisherReporsitory publisherReporsitory;
+
+    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherReporsitory publisherReporsitory) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.publisherReporsitory = publisherReporsitory;
     }
 
-
-
-
     @Override
-    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        initData();
-    }
-
-    private void initData(){
+    public void run(String... args) throws Exception{
         //initial publisher
         Publisher publisher = new Publisher("foo","12th Street, LA");
 
@@ -66,7 +58,7 @@ public class DevBoostrap implements ApplicationListener<ContextRefreshedEvent> {
         authorRepository.save(rod);
         bookRepository.save(noEJB);
 
-        System.out.println("Start ApplicationListener in BootStrap");
-        System.out.println("num of books in repositories " + bookRepository.count());
+        System.out.println("Start CommandLineRunner in BootStrap");
+        System.out.println("num of books in repositories" + bookRepository.count());
     }
 }
