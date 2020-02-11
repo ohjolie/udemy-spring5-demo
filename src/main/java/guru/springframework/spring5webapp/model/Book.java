@@ -17,8 +17,11 @@ public class Book {
     private String title;
     private String isbn;
 
-    @OneToOne
+    @ManyToOne
+    /*@JoinTable(name="publisher_book",joinColumns=@JoinColumn(name="publisher_id"),
+    inverseJoinColumns=@JoinColumn(name="book_id"))*/
     private Publisher publisher;
+
 
     @ManyToMany
     @JoinTable(name="author_book",joinColumns=@JoinColumn(name="book_id"),

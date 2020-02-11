@@ -1,7 +1,9 @@
 package guru.springframework.spring5webapp.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @Author Jolie
@@ -14,11 +16,12 @@ public class Publisher {
     private Long id;
     private String name;
     private String address;
+    private String city;
 
-/*  @OneToOne
-    @JoinTable(name = "book_publisher" , joinColumns = @JoinColumn( name = "book_id"),
-    inverseJoinColumns = @JoinColumn( name = "publisher_id"));
-    private Book book*/
+    @OneToMany //(mappedBy="publisher")
+    @JoinColumn(name = "publisher_id")
+    private Set<Book> books = new HashSet<>();
+
     public Publisher(){
 
     }
