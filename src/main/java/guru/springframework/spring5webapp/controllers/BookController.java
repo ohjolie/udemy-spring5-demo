@@ -11,16 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class BookController {
-    private BookRepository bookRepository;
+    //final: read only
+    private final BookRepository bookRepository;
 
     public BookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
-    @RequestMapping("/books") //so we can open it in localhost:8080/books
+    @RequestMapping("/books") //request html address
     public String getBooks(Model model){
         model.addAttribute("books", bookRepository.findAll());
 
-        return "books";
+        return "books/list";
     }
 }
